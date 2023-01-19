@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome</title>
+        <!--<link rel = "stylesheet" href="{{url_for('static',filename='index.css')}}">-->
+        <link rel = "stylesheet" href="../static/index.css"  type="text/css">
+    </head>
+    <body>
+        <div class="card">
+            <div class="header">
+            <h2>welcome!! {{ username }}</h2>
+            </div><!-- header -->
+            <div class="box">
+                <div class="form">
+                    <h2>本をさがす</h2>
+                    <div class="search">
+                        <form action ="/index" method="post">
+                            <input type="text" id="bookname" name="bookname" placeholder="タイトル"></input>
+                            <input type="hidden" id="username" name="username" value="{{ username }}">
+                            <input type="submit" class="submit"></input>
+                        </form>
+                    </div><!-- search -->
+                    <table border="3" bordercolor="#8f8f8f">
+                        <tr>
+                            <th>タイトル</th>
+                            <th>著者</th>
+                            <th>年号</th>
+                        </tr>
+                        {% for info in db %} <!-- dbから情報とって一行ずつ追加 -->
+                        <tr>
+                            <td>{{ info[0] }}</td>
+                            <td>{{ info[1] }}</td>
+                            <td>{{ info[2] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="error">
+                    {% if error_message %}
+                    <h2>{{ error_message }}</h2>
+                    {% endif %}
+                    </div><!-- error -->
+                </div><!-- form -->
+            </div>    
+            <div class="logout">
+            <p>
+                <a href="{{ url_for('logout') }}">ログアウト</a></li>
+            </p>
+            </div><!-- logout -->
+        </div><!-- card -->
+    </body>
+</html>

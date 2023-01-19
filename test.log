@@ -1,0 +1,37 @@
+2023-01-18 14:47:57,408 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:47:57] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2023-01-18 14:50:21,503 - ERROR:app - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "c:\Users\hatak\Documents\security\web_app_sqli\app\app.py", line 27, in login_post
+    logging.INFO(username, password)
+TypeError: 'int' object is not callable
+2023-01-18 14:50:21,503 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:50:21] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2023-01-18 14:52:30,581 - ERROR:app - Exception on /login [POST]
+Traceback (most recent call last):
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\hatak\anaconda3\envs\taikif\lib\site-packages\flask\app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "c:\Users\hatak\Documents\security\web_app_sqli\app\app.py", line 27, in login_post
+    logging.NOTSET(username, password)
+TypeError: 'int' object is not callable
+2023-01-18 14:52:30,581 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:52:30] "[35m[1mPOST /login HTTP/1.1[0m" 500 -
+2023-01-18 14:55:04,220 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:04] "POST /login HTTP/1.1" 200 -
+2023-01-18 14:55:04,244 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:04] "[36mGET /static/index.css HTTP/1.1[0m" 304 -
+2023-01-18 14:55:28,254 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:28] "POST /index HTTP/1.1" 200 -
+2023-01-18 14:55:28,278 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:28] "[36mGET /static/index.css HTTP/1.1[0m" 304 -
+2023-01-18 14:55:31,145 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:31] "POST /index HTTP/1.1" 200 -
+2023-01-18 14:55:31,161 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:31] "[36mGET /static/index.css HTTP/1.1[0m" 304 -
+2023-01-18 14:55:35,528 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:35] "POST /index HTTP/1.1" 200 -
+2023-01-18 14:55:35,552 - INFO:werkzeug - 127.0.0.1 - - [18/Jan/2023 14:55:35] "[36mGET /static/index.css HTTP/1.1[0m" 304 -

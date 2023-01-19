@@ -1,0 +1,41 @@
+<html>
+<lang="ja">
+    <head>
+        <meta charset = "utf-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0" />
+        <title>Y0u c4n sq1i </title>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    </head>
+    <body>
+        <div class="box">
+            <div class="form">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h2>Sign in</h2>
+            <form action="/login" method="post">
+                <div class="inputBox">
+                    <span>ID</span>
+                    <input type="text" required="required" id="user" name="username">
+                    <i></i>
+                </div>
+
+                <div class="inputBox">
+                    <span>PASSWORD</span>
+                    <input type="password" required="required" id="password" name="password">
+                    <i></i>
+                </div>
+                <div class="links">
+                    <a href="#">Forgot Password</a>
+                    <a href="#">Signup</a>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+            </div><!-- form -->
+        </div><!-- box -->
+    </body>
+</html>
