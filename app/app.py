@@ -1,7 +1,8 @@
-from flask import Flask, flash, redirect, request, render_template
+from flask import Flask, flash, redirect, request, render_template, has_request_context
 from flask.logging import default_handler
 import sqlite3
 import logging
+
 
 conn = sqlite3.connect('webapp.db')
     
@@ -9,6 +10,28 @@ app = Flask(__name__)
 app.config['USERNAME'] = 'admin'
 app.config['PASSWORD'] = 'password'
 app.config['SECRET_KEY'] = 'secret'
+
+class RequestFormatter(logging.Formatter):
+    def format(self, record):
+        if has_request_context():
+            record.url = request.url
+            record.remote_addr = request.remote_addr
+        else:
+            record.url = None
+            record.remote_addr = None
+
+        return super().format(record)
+
+formatter = RequestFormatter(
+    '[%(asctime)s] %(remote_addr)s requested %(url)s '
+    '%(levelname)s in %(module)s: %(message)s'
+)
+
+default_handler.setFormatter(formatter)
+default_handler.setLevel(logging.INFO)
+
+werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger.addHandler(default_handler)
 
 @app.route("/")
 def hello():
@@ -23,7 +46,10 @@ def login_post():
     username = request.form["username"]
     password = request.form["password"]
     conn = sqlite3.connect('webapp.db')
-    logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
+    #logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
+
+    
+    
     #脆弱な雛形を用意する。判定の仕方も脆弱。
     sql = f"SELECT * FROM users WHERE name = '{username}' and password = '{password}'"
     curs = conn.execute(
@@ -90,6 +116,3 @@ def logout():
     return redirect('/login')
 
 conn.close()
-
-if __name__ == '__main__':
-    app.run()
