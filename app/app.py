@@ -37,6 +37,10 @@ werkzeug_logger.addHandler(default_handler)
 def hello():
     return redirect('/login')
 
+@app.route("/signup", methods=['GET'])
+def signup_get():
+    return redirect('/signup')
+
 @app.route("/login", methods=['GET'])
 def login_get():
     return render_template("login.html")
@@ -47,9 +51,6 @@ def login_post():
     password = request.form["password"]
     conn = sqlite3.connect('webapp.db')
     #logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
-
-    
-    
     #脆弱な雛形を用意する。判定の仕方も脆弱。
     sql = f"SELECT * FROM users WHERE name = '{username}' and password = '{password}'"
     curs = conn.execute(
