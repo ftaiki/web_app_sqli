@@ -39,7 +39,22 @@ def hello():
 
 @app.route("/signup", methods=['GET'])
 def signup_get():
-    return redirect('/signup')
+    return render_template("signup.html")
+
+@app.route("/signup", methods=['POST'])
+def signup_post():
+    username = request.form["name"]
+    password = request.form["password"]
+    conn = sqlite3.connect('webapp.db')
+    cur = conn.cursor()
+    sql = "INSERT INTO users(name, password) values(?,?)"
+    data = [username, password]
+    cur.execute(
+        sql,data
+    )
+    conn.commit()
+    conn.close()
+    return render_template("index.html", username=username)
 
 @app.route("/login", methods=['GET'])
 def login_get():
@@ -111,6 +126,10 @@ def index():
         db = curs
         return render_template('index.html', username=username, db=db)
     
+@app.route("/index",methods=['GET'])
+def index_get():
+    username=request.form["username"]
+    return render_template('index.html', username=username)
 @app.route('/logout')
 def logout():
     flash('ログアウトしました')
