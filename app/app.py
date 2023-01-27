@@ -79,6 +79,8 @@ def login_post():
     if not curs:
         flash('failed to login')
         return redirect('/login')
+    print(username)
+    print(password)
     return render_template('index.html',username=username, db=index)
 
 
