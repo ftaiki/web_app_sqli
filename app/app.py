@@ -5,7 +5,7 @@ import logging
 import datetime
 import requests
 
-conn = sqlite3.connect('webapp.db')
+conn = sqlite3.connect('webapp.db', isolation_level=None)
     
 app = Flask(__name__)
 app.config['USERNAME'] = 'admin'
@@ -46,7 +46,7 @@ def signup_get():
 def signup_post():
     username = request.form["name"]
     password = request.form["password"]
-    conn = sqlite3.connect('webapp.db')
+    conn = sqlite3.connect('webapp.db', isolation_level=None)
     cur = conn.cursor()
     sql = "INSERT INTO users(name, password) values(?,?)"
     data = [username, password]
@@ -65,7 +65,7 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
-    conn = sqlite3.connect('webapp.db')
+    conn = sqlite3.connect('webapp.db', isolation_level=None)
     #logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
     #脆弱な雛形を用意する。判定の仕方も脆弱。
     sql = f"SELECT * FROM users WHERE name = '{username}' and password = '{password}'"
@@ -114,7 +114,7 @@ def login_post():
 def index_post():
     username = request.form["username"]
     bookname = request.form["bookname"]
-    conn = sqlite3.connect('webapp.db')
+    conn = sqlite3.connect('webapp.db', isolation_level=None)
     
     #もしbooknameが空だったら全件表示するようにする
     if not bookname:
@@ -146,7 +146,7 @@ def index():
     if username is None:
         return redirect('/login')
     else:
-        conn = sqlite3.connect('webapp.db')
+        conn = sqlite3.connect('webapp.db', isolation_level=None)
         sql = f"SELECT * FROM books"
         curs = conn.execute(
             sql

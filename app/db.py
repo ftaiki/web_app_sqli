@@ -32,12 +32,12 @@ curs = conn.cursor()
 #)
 #conn.commit()
 
-curs.execute(
-    'SELECT * FROM books;'
+curs = conn.execute(
+    "SELECT COUNT(*) FROM sqlite_master WHERE TYPE='table' AND name='users';"
 )
-#db = curs.fetchall()
+db = curs.fetchall()
 
-#for i in db:
-#    print(i[0])
+for i in db:
+    print(i[0])
 curs.close()
 conn.close()
