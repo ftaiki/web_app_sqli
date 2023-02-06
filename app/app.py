@@ -44,6 +44,17 @@ def login_get():
 def login_post():
     username = request.form["username"]
     password = request.form["password"]
+    #POSTデータを送る
+    event1 = ""
+    event2 = ""
+        
+    event1 = request.form['username']
+    event2 = request.form['password']
+        
+    payload={'ip_address':request.remote_addr,'event1':event1,'event2':event2}
+        
+    r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
+    
     conn = sqlite3.connect('webapp.db', isolation_level=None)
     #logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
     #脆弱な雛形を用意する。判定の仕方も脆弱。
@@ -70,10 +81,6 @@ def login_post():
         print(loginfo)
         flash('failed to login')
         
-        payload={'ip_address':request.remote_addr,'event1':request.form["username"],'event2':request.form["password"]}
-        
-        r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
-        
         return redirect('/login')
     
     #ログをローテートする処理を書く
@@ -85,7 +92,7 @@ def login_post():
                 request.form["username"],
                 request.form["password"]
     ]
-    print(loginfo)
+    
     return render_template('index.html',username=username, db=index)
 
 
@@ -93,6 +100,15 @@ def login_post():
 def index_post():
     username = request.form["username"]
     bookname = request.form["bookname"]
+    event1 = ""
+    event2 = ""
+        
+    event1 = request.form['bookname']
+        
+    payload={'ip_address':request.remote_addr,'event1':event1,'event2':event2}
+        
+    r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
+    
     conn = sqlite3.connect('webapp.db', isolation_level=None)
     
     #もしbooknameが空だったら全件表示するようにする
