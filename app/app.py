@@ -2,7 +2,7 @@ from flask import Flask, flash, redirect, request, render_template, has_request_
 from flask.logging import default_handler
 import sqlite3
 import logging
-
+import datetime
 
 conn = sqlite3.connect('webapp.db')
     
@@ -77,10 +77,30 @@ def login_post():
     ).fetchall()
     
     if not curs:
+        #ログをローテートする処理を書く
+        dt = datetime.datetime.now()
+        loginfo = [ str(dt.strftime('%Y-%m-%d %H:%M:%S')),
+                    request.method,
+                    request.url,
+                    request.path,
+                    request.scheme,
+                    request.form["username"],
+                    request.form["password"]
+        ]
+        print(loginfo)
         flash('failed to login')
         return redirect('/login')
-    print(username)
-    print(password)
+    
+    #ログをローテートする処理を書く
+    loginfo = [ str(request.date),
+                request.method,
+                request.url,
+                request.path,
+                request.scheme,
+                request.form["username"],
+                request.form["password"]
+    ]
+    print(loginfo)
     return render_template('index.html',username=username, db=index)
 
 
