@@ -64,6 +64,7 @@ def login_post():
             sql
         ).fetchall()
     except:
+        flash('failed to login')
         return redirect('/login')
     index_sql = f"SELECT * FROM books"
     index = conn.execute(
