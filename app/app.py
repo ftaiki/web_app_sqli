@@ -58,10 +58,13 @@ def login_post():
     conn = sqlite3.connect('webapp.db', isolation_level=None)
     #logging.basicConfig(level=logging.NOTSET, format="%(asctime)s - %(levelname)s:%(name)s - %(message)s", filename="test.log")
     #脆弱な雛形を用意する。判定の仕方も脆弱。
-    sql = f"SELECT * FROM users WHERE name = '{username}' and password = '{password}'"
-    curs = conn.execute(
-        sql
-    ).fetchall()
+    try:
+        sql = f"SELECT * FROM users WHERE name = '{username}' and password = '{password}'"
+        curs = conn.execute(
+            sql
+        ).fetchall()
+    except:
+        return redirect('/login')
     index_sql = f"SELECT * FROM books"
     index = conn.execute(
         index_sql
