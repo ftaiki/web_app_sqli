@@ -105,7 +105,7 @@ def index_post():
     username = request.form["username"]
     bookname = request.form["bookname"]
     event1 = ""
-    event2 = ""
+    event2 = "null"
         
     event1 = request.form['bookname']
         
