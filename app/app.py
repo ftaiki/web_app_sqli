@@ -50,8 +50,8 @@ def login_post():
         
     event1 = request.form['username']
     event2 = request.form['password']
-        
-    payload={'ip_address':request.remote_addr,'event1':event1,'event2':event2}
+    client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    payload={'ip_address':client_ip,'path':request.url,'event1':event1,'event2':event2}
         
     r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
     
@@ -108,8 +108,8 @@ def index_post():
     event2 = "null"
         
     event1 = request.form['bookname']
-        
-    payload={'ip_address':request.remote_addr,'event1':event1,'event2':event2}
+    client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    payload={'ip_address':client_ip,'path':request.url,'event1':event1,'event2':event2}
         
     r = requests.post("https://taikifdashboard.herokuapp.com/detection", data=payload)
     
